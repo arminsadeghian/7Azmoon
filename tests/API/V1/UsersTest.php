@@ -40,4 +40,35 @@ class UsersTest extends TestCase
         $this->assertEquals(422, $response->status());
     }
 
+    /** @test */
+    public function itShouldUpdateTheInformationOfUser()
+    {
+        $response = $this->call('PUT', 'api/v1/users', [
+            'id' => 3,
+            'full_name' => 'Armin Sadeghian-Updated',
+            'email' => 'arminUpdated@gmail.com',
+            'mobile' => '09038884841Updated',
+        ]);
+
+        $this->assertEquals(200, $response->status());
+
+        $this->seeJsonStructure([
+            'success',
+            'message',
+            'data' => [
+                'full_name',
+                'email',
+                'mobile',
+            ],
+        ]);
+    }
+
+    /** @test */
+    public function itMustThrowExceptionIfWeDontSendParameterToUpdateInfo()
+    {
+        $newUser = [];
+        $response = $this->call('PUT', 'api/v1/users', $newUser);
+        $this->assertEquals(422, $response->status());
+    }
+
 }

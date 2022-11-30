@@ -55,4 +55,27 @@ class UsersController extends BaseAPIController
 //        ])->setStatusCode(201);
 
     }
+
+    public function updateInformation(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|numeric',
+            'full_name' => 'required|string|min:3|max:255',
+            'email' => 'required|email',
+            'mobile' => 'required|string',
+        ]);
+
+        $this->userRepository->update($request->id, [
+            'full_name' => $request->full_name,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+        ]);
+
+        return $this->respondSuccess('کاربر آپدیت شد', [
+            'full_name' => $request->full_name,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+        ]);
+    }
+
 }
