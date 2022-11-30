@@ -32,4 +32,12 @@ class UsersTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function itMustThrowExceptionIfWeDontSendParameter()
+    {
+        $newUser = [];
+        $response = $this->call('POST', 'api/v1/users', $newUser);
+        $this->assertEquals(422, $response->status());
+    }
+
 }
