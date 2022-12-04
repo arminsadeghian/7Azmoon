@@ -102,7 +102,7 @@ class UsersTest extends TestCase
     public function itShouldDeleteUser()
     {
         $response = $this->call('DELETE', '/api/v1/users', [
-            'id' => 813,
+            'id' => 380,
         ]);
 
         $this->assertEquals(200, $response->status());
@@ -119,6 +119,28 @@ class UsersTest extends TestCase
     {
         $response = $this->call('DELETE', '/api/v1/users', []);
         $this->assertEquals(422, $response->status());
+    }
+
+    /** @test */
+    public function itShouldGetUsers()
+    {
+        $page = 1;
+        $pageSize = 3;
+
+        $response = $this->call('GET', '/api/v1/users', [
+            'page' => $page,
+            'page_size' => $pageSize
+        ]);
+
+        $data = json_decode($response->getContent(), true);
+
+        $this->assertEquals($pageSize, count($data['data']));
+        $this->assertEquals(200, $response->status());
+        $this->seeJsonStructure([
+            'success',
+            'message',
+            'data',
+        ]);
     }
 
 }

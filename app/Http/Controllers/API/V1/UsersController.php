@@ -20,6 +20,18 @@ class UsersController extends BaseAPIController
     {
     }
 
+    public function index(Request $request)
+    {
+        $this->validate($request, [
+            'page' => 'nullable|numeric',
+            'page_size' => 'nullable|numeric',
+        ]);
+
+        $users = $this->userRepository->paginate($request->page ?? 1, $request->page_size ?? 20);
+
+        return $this->respondSuccess('کاربران', $users);
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [

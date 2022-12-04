@@ -15,4 +15,6 @@ interface RepositoryInterface
     public function deleteBy(array $where);
 
     public function delete(int $id): bool;
+
+    public function paginate(int $page = 1, int $pageSize = 20);
 }

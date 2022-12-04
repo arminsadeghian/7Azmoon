@@ -82,4 +82,23 @@ class JsonBaseRepository implements RepositoryInterface
 
         return false;
     }
+
+    public function paginate(int $page = 1, int $pageSize = 20)
+    {
+        $users = json_decode(file_get_contents(base_path() . '/users.json'), true);
+
+        $totalRecords = count($users);
+        $totalPages = ceil($totalRecords / $pageSize);
+
+        if ($page > $totalPages) {
+            $page = $totalRecords;
+        }
+
+        if ($page < 1) {
+            $page = 1;
+        }
+
+        $offset = ($page - 1) * $pageSize;
+        return array_slice($users, $offset, $pageSize);
+    }
 }
