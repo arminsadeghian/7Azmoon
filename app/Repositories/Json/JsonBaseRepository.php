@@ -6,25 +6,28 @@ use App\Repositories\Contracts\RepositoryInterface;
 
 class JsonBaseRepository implements RepositoryInterface
 {
+    protected string $jsonModel;
 
     public function create(array $data)
     {
-        if (file_exists('users.json')) {
-            $users = json_decode(file_get_contents('users.json'), true);
+        if (file_exists($this->jsonModel)) {
+            $users = json_decode(file_get_contents($this->jsonModel), true);
             $data['id'] = rand(1, 1000);
             array_push($users, $data);
-            file_put_contents('users.json', json_encode($users));
+            file_put_contents($this->jsonModel, json_encode($users));
         } else {
             $users = [];
             $data['id'] = rand(1, 1000);
             array_push($users, $data);
-            file_put_contents('users.json', json_encode($users));
+            file_put_contents($this->jsonModel, json_encode($users));
         }
+
+        return $data;
     }
 
     public function update(int $id, array $data)
     {
-        $users = json_decode(file_get_contents('users.json'), true);
+        $users = json_decode(file_get_contents($this->jsonModel), true);
 
         foreach ($users as $key => $user) {
 
@@ -37,11 +40,11 @@ class JsonBaseRepository implements RepositoryInterface
                 unset($users[$key]);
                 array_push($users, $user);
 
-                if (file_exists('users.json')) {
-                    unlink('users.json');
+                if (file_exists($this->jsonModel)) {
+                    unlink($this->jsonModel);
                 }
 
-                file_put_contents('users.json', json_encode($users));
+                file_put_contents($this->jsonModel, json_encode($users));
                 break;
             }
         }
@@ -50,7 +53,15 @@ class JsonBaseRepository implements RepositoryInterface
 
     public function find(int $id)
     {
-        // TODO: Implement find() method.
+        $users = json_decode(file_get_contents($this->jsonModel), true);
+
+        foreach ($users as $user) {
+            if ($user['id'] == $id) {
+                return $user;
+            }
+        }
+
+        return [];
     }
 
     public function all(array $where)
@@ -65,17 +76,17 @@ class JsonBaseRepository implements RepositoryInterface
 
     public function delete(int $id): bool
     {
-        $users = json_decode(file_get_contents('users.json'), true);
+        $users = json_decode(file_get_contents($this->jsonModel), true);
 
         foreach ($users as $key => $user) {
             if ($user['id'] == $id) {
                 unset($users[$key]);
 
-                if (file_exists('users.json')) {
-                    unlink('users.json');
+                if (file_exists($this->jsonModel)) {
+                    unlink($this->jsonModel);
                 }
 
-                file_put_contents('users.json', json_encode($users));
+                file_put_contents($this->jsonModel, json_encode($users));
                 return true;
             }
         }
@@ -85,7 +96,7 @@ class JsonBaseRepository implements RepositoryInterface
 
     public function paginate(int $page = 1, int $pageSize = 20)
     {
-        $users = json_decode(file_get_contents(base_path() . '/users.json'), true);
+        $users = json_decode(file_get_contents(base_path() . '/' . $this->jsonModel), true);
 
         $totalRecords = count($users);
         $totalPages = ceil($totalRecords / $pageSize);

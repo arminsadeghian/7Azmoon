@@ -50,4 +50,8 @@ abstract class EloquentBaseRepository implements RepositoryInterface
         return $query->delete();
     }
 
+    public function paginate(int $page = 1, int $pageSize = 20)
+    {
+    }
+
 }

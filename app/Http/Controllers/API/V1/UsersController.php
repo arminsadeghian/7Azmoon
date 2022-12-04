@@ -8,14 +8,6 @@ use Illuminate\Http\Request;
 
 class UsersController extends BaseAPIController
 {
-
-//    private UserRepositoryInterface $userRepository;
-//
-//    public function __construct(UserRepositoryInterface $userRepository)
-//    {
-//        $this->userRepository = $userRepository;
-//    }
-
     public function __construct(private UserRepositoryInterface $userRepository)
     {
     }
@@ -41,31 +33,21 @@ class UsersController extends BaseAPIController
             'password' => 'required',
         ]);
 
-        $this->userRepository->create([
+        $newUser = $this->userRepository->create([
             'full_name' => $request->full_name,
             'email' => $request->email,
             'mobile' => $request->mobile,
             'password' => app('hash')->make($request->password),
         ]);
 
+//        return $newUser->getEmail();
+
         return $this->respondCreated('کاربر ایجاد شد', [
-            'full_name' => $request->full_name,
-            'email' => $request->email,
-            'mobile' => $request->mobile,
-            'password' => $request->password,
+            'full_name' => $newUser->getFullName(),
+            'email' => $newUser->getEmail(),
+            'mobile' => $newUser->getMobile(),
+            'password' => $newUser->getPassword(),
         ]);
-
-//        return response()->json([
-//            'success' => true,
-//            'message' => 'کاربر ایجاد شد',
-//            'data' => [
-//                'full_name' => $request->full_name,
-//                'email' => $request->email,
-//                'mobile' => $request->mobile,
-//                'password' => $request->password,
-//            ],
-//        ])->setStatusCode(201);
-
     }
 
     public function updateInformation(Request $request)
