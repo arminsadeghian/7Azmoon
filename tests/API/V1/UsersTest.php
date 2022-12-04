@@ -2,10 +2,17 @@
 
 namespace Tests\API\V1;
 
+use App\Repositories\Contracts\UserRepositoryInterface;
 use Tests\TestCase;
 
 class UsersTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->artisan('migrate:refresh');
+    }
+
     /** @test */
     public function shouldCreateNewUser()
     {
@@ -42,8 +49,9 @@ class UsersTest extends TestCase
     /** @test */
     public function itShouldUpdateTheInformationOfUser()
     {
+        $user = $this->createUser()[0];
         $response = $this->call('PUT', 'api/v1/users', [
-            'id' => 3,
+            'id' => $user->getId(),
             'full_name' => 'Armin Sadeghian-Updated',
             'email' => 'arminUpdated@gmail.com',
             'mobile' => '09038884841Updated',
@@ -72,8 +80,9 @@ class UsersTest extends TestCase
     /** @test */
     public function itShouldUpdateUserPassword()
     {
+        $user = $this->createUser()[0];
         $response = $this->call('PUT', '/api/v1/users/change-password', [
-            'id' => 3,
+            'id' => $user->getId(),
             'password' => '123456789',
             'password_repeat' => '123456789',
         ]);
@@ -101,8 +110,9 @@ class UsersTest extends TestCase
     /** @test */
     public function itShouldDeleteUser()
     {
+        $user = $this->createUser()[0];
         $response = $this->call('DELETE', '/api/v1/users', [
-            'id' => 380,
+            'id' => $user->getId(),
         ]);
 
         $this->assertEquals(200, $response->status());
@@ -124,6 +134,8 @@ class UsersTest extends TestCase
     /** @test */
     public function itShouldGetUsers()
     {
+        $this->createUser(10);
+
         $page = 1;
         $pageSize = 3;
 
@@ -141,6 +153,25 @@ class UsersTest extends TestCase
             'message',
             'data',
         ]);
+    }
+
+    private function createUser(int $count = 1): array
+    {
+        $users = [];
+
+        $userRepository = $this->app->make(UserRepositoryInterface::class);
+
+        $userData = [
+            'full_name' => '7azmoon',
+            'email' => '7azmoon@gmail.com',
+            'mobile' => '09111111111',
+        ];
+
+        foreach (range(0, $count) as $item) {
+            $users[] = $userRepository->create($userData);
+        }
+
+        return $users;
     }
 
 }
