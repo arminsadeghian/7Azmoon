@@ -16,5 +16,5 @@ interface RepositoryInterface
 
     public function delete(int $id): bool;
 
-    public function paginate(int $page = 1, int $pageSize = 20);
+    public function paginate(int $page = 1, int $pageSize = 20, array $columns = []): array;
 }

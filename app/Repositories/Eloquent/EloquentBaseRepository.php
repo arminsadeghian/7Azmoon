@@ -50,8 +50,9 @@ abstract class EloquentBaseRepository implements RepositoryInterface
         return $query->delete();
     }
 
-    public function paginate(int $page = 1, int $pageSize = 20)
+    public function paginate(int $page = 1, int $pageSize = 20, array $columns = ['*']): array
     {
+        return $this->model::paginate($pageSize, $columns, null, $page)->toArray()['data'];
     }
 
 }
