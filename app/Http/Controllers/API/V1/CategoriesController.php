@@ -13,6 +13,18 @@ class CategoriesController extends BaseAPIController
     {
     }
 
+    public function index(Request $request)
+    {
+        $this->validate($request, [
+            'page' => 'nullable|numeric',
+            'page_size' => 'nullable|numeric',
+        ]);
+
+        $categories = $this->categoryRepository->paginate($request->page ?? 1, $request->page_size ?? 5, ['*']);
+
+        return $this->respondSuccess('دسته بندی ها', $categories);
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [

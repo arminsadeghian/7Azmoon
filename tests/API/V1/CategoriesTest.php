@@ -74,6 +74,30 @@ class CategoriesTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function ensureWeCanGetCategories()
+    {
+        $this->createCategory(20);
+
+        $page = 1;
+        $pageSize = 5;
+
+        $response = $this->call('GET', 'api/v1/categories', [
+            'page' => $page,
+            'pagesize' => $pageSize,
+        ]);
+
+        $data = json_decode($response->getContent(), true);
+
+        $this->assertEquals($pageSize, count($data['data']));
+        $this->assertEquals(200, $response->status());
+        $this->seeJsonStructure([
+            'success',
+            'message',
+            'data',
+        ]);
+    }
+
     private function createCategory(int $count = 1): array
     {
         $categories = [];
