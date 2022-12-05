@@ -23,4 +23,8 @@ $router->group(['prefix' => 'api/v1/'], function () use ($router) {
         $router->get('', 'API\V1\UsersController@index');
     });
 
+    $router->group(['prefix' => 'categories/'], function () use ($router) {
+        $router->post('', 'API\V1\CategoriesController@store');
+    });
+
 });
