@@ -50,6 +50,30 @@ class CategoriesTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function ensureWeCanUpdateCategory()
+    {
+        $category = $this->createCategory()[0];
+
+        $categoryData = [
+            'id' => (string)$category->getId(),
+            'name' => $category->getName() . 'updated',
+            'slug' => $category->getSlug() . '-updated',
+        ];
+
+        $response = $this->call('PUT', 'api/v1/categories', $categoryData);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->seeJsonStructure([
+            'success',
+            'message',
+            'data' => [
+                'name',
+                'slug'
+            ],
+        ]);
+    }
+
     private function createCategory(int $count = 1): array
     {
         $categories = [];
