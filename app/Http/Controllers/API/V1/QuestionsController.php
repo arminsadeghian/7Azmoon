@@ -73,4 +73,42 @@ class QuestionsController extends BaseAPIController
 
         return $this->respondSuccess('سوال حذف شد', []);
     }
+
+    public function update(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|numeric',
+            'quiz_id' => 'required|numeric',
+            'title' => 'required|string',
+            'score' => 'required|numeric',
+            'options' => 'required|json',
+            'is_active' => 'required|numeric',
+        ]);
+
+        if (!$this->questionRepository->find($request->id)) {
+            return $this->respondNotFound('سوال یافت نشد');
+        }
+
+        try {
+            $updatedQuestion = $this->questionRepository->update($request->id, [
+                'quiz_id' => $request->quiz_id,
+                'title' => $request->title,
+                'score' => $request->score,
+                'options' => $request->options,
+                'is_active' => $request->is_active,
+            ]);
+
+        } catch (\Exception $e) {
+            return $this->respondInternalError($e->getMessage());
+        }
+
+        return $this->respondSuccess('سوال بروزرسانی شد', [
+            'title' => $updatedQuestion->getTitle(),
+            'score' => $updatedQuestion->getScore(),
+            'is_active' => $updatedQuestion->getIsActive(),
+            'quiz_id' => $updatedQuestion->getQuizId(),
+            'options' => json_encode($updatedQuestion->getOptions()),
+        ]);
+    }
+
 }

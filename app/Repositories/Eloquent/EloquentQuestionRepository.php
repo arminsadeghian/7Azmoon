@@ -16,4 +16,14 @@ class EloquentQuestionRepository extends EloquentBaseRepository implements Quest
         $createdQuestion = parent::create($data);
         return new QuestionEloquentEntity($createdQuestion);
     }
+
+    public function update(int $id, array $data): QuestionEntityInterface
+    {
+        if (!parent::update($id, $data)) {
+            throw new \RuntimeException('سوال بروزرسانی نشد');
+        }
+
+        return new QuestionEloquentEntity(parent::find($id));
+    }
+
 }

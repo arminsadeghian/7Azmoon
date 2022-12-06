@@ -93,4 +93,39 @@ class QuestionsTest extends TestCase
             'data'
         ]);
     }
+
+    /** @test */
+    public function ensureWeCanUpdateQuestion()
+    {
+        $question = $this->createQuestion()[0];
+
+        $questionUpdatedData = [
+            'id' => (string)$question->getId(),
+            'quiz_id' => $question->getQuizId(),
+            'title' => $question->getTitle() . 'updated',
+            'score' => 30,
+            'options' => json_encode($question->getOptions()),
+            'is_active' => $question->getIsActive(),
+        ];
+
+        $response = $this->call('PUT', 'api/v1/questions', $questionUpdatedData);
+        $responseData = json_decode($response->getContent(), true)['data'];
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $this->assertEquals($questionUpdatedData['title'], $responseData['title']);
+        $this->assertEquals($questionUpdatedData['score'], $responseData['score']);
+
+        $this->seeJsonStructure([
+            'success',
+            'message',
+            'data' => [
+                'quiz_id',
+                'title',
+                'options',
+                'score',
+                'is_active',
+            ],
+        ]);
+    }
 }
