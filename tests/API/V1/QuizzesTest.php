@@ -67,4 +67,27 @@ class QuizzesTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function ensureWeCanGetQuizzes()
+    {
+        $this->createQuiz(30);
+
+        $pageSize = 3;
+
+        $response = $this->call('GET', 'api/v1/quizzes', [
+            'page' => 1,
+            'page_size' => $pageSize,
+        ]);
+
+        $data = json_decode($response->getContent(), true);
+
+        $this->assertEquals($pageSize, count($data['data']));
+        $this->assertEquals(200, $response->status());
+        $this->seeJsonStructure([
+            'success',
+            'message',
+            'data',
+        ]);
+    }
+
 }

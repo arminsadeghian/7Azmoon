@@ -13,6 +13,18 @@ class QuizzesController extends BaseAPIController
     {
     }
 
+    public function index(Request $request)
+    {
+        $this->validate($request, [
+            'page' => 'nullable|numeric',
+            'page_size' => 'nullable|numeric',
+        ]);
+
+        $quizzes = $this->quizRepository->paginate($request->page ?? 1, $request->page_size ?? 3, ['title', 'description', 'start_date', 'duration']);
+
+        return $this->respondSuccess('آزمون ها', $quizzes);
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [
