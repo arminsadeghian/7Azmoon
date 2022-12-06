@@ -14,6 +14,18 @@ class QuestionsController extends BaseAPIController
     {
     }
 
+    public function index(Request $request)
+    {
+        $this->validate($request, [
+            'page' => 'nullable|numeric',
+            'page_size' => 'nullable|numeric',
+        ]);
+
+        $questions = $this->questionRepository->paginate($request->page ?? 1, $request->page_size ?? 10, ['*']);
+
+        return $this->respondSuccess('سوالات', $questions);
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [

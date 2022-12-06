@@ -72,4 +72,25 @@ class QuestionsTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function ensureWeCanGetQuestions()
+    {
+        $this->createQuestion(30);
+
+        $pageSize = 10;
+        $response = $this->call('GET', 'api/v1/questions', [
+            'page' => 1,
+            'page_size' => $pageSize,
+        ]);
+
+        $responseData = json_decode($response->getContent(), true)['data'];
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals($pageSize, count($responseData));
+        $this->seeJsonStructure([
+            'success',
+            'message',
+            'data'
+        ]);
+    }
 }
