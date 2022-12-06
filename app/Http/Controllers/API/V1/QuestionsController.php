@@ -45,4 +45,20 @@ class QuestionsController extends BaseAPIController
         ]);
     }
 
+    public function delete(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|numeric',
+        ]);
+
+        if (!$this->questionRepository->find($request->id)) {
+            return $this->respondNotFound('سوال وجود ندارد');
+        }
+
+        if (!$this->questionRepository->delete($request->id)) {
+            return $this->respondInternalError('سوال حذف نشد');
+        }
+
+        return $this->respondSuccess('سوال حذف شد', []);
+    }
 }
