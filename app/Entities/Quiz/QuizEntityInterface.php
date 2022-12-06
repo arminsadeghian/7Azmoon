@@ -15,4 +15,6 @@ interface QuizEntityInterface
     public function getStartDate(): string;
 
     public function getDuration(): string;
+
+    public function getIsActive(): bool;
 }

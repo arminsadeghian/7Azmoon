@@ -22,6 +22,7 @@ return new class extends Migration {
             $table->text('description');
             $table->date('start_date');
             $table->timestamp('duration');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
