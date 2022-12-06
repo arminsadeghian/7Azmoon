@@ -98,22 +98,4 @@ class CategoriesTest extends TestCase
         ]);
     }
 
-    private function createCategory(int $count = 1): array
-    {
-        $categories = [];
-
-        $categoryRepository = $this->app->make(CategoryRepositoryInterface::class);
-
-        $categoryData = [
-            'name' => 'category1',
-            'slug' => 'category-1',
-        ];
-
-        foreach (range(0, $count) as $item) {
-            $categories[] = $categoryRepository->create($categoryData);
-        }
-
-        return $categories;
-    }
-
 }
