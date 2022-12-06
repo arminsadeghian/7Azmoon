@@ -50,4 +50,21 @@ class QuizzesTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function ensureWeCanDeleteQuiz()
+    {
+        $quiz = $this->createQuiz()[0];
+
+        $response = $this->call('DELETE', 'api/v1/quizzes', [
+            'id' => $quiz->getId(),
+        ]);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->seeJsonStructure([
+            'success',
+            'message',
+            'data',
+        ]);
+    }
+
 }

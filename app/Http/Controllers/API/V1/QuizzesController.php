@@ -47,4 +47,21 @@ class QuizzesController extends BaseAPIController
         ]);
     }
 
+    public function delete(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|numeric',
+        ]);
+
+        if (!$this->quizRepository->find($request->id)) {
+            return $this->respondNotFound('آزمون وجود ندارد');
+        }
+
+        if (!$this->quizRepository->delete($request->id)) {
+            return $this->respondInternalError('آزمون حذف نشد');
+        }
+
+        return $this->respondSuccess('آزمون حذف شد', []);
+    }
+
 }
