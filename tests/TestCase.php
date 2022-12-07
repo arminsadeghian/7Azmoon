@@ -2,6 +2,8 @@
 
 namespace Tests;
 
+use App\Consts\AnswerSheetsStatus;
+use App\Repositories\Contracts\AnswerSheetRepositoryInterface;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\QuestionRepositoryInterface;
 use App\Repositories\Contracts\QuizRepositoryInterface;
@@ -90,6 +92,33 @@ abstract class TestCase extends BaseTestCase
         }
 
         return $questions;
+    }
+
+    protected function createAnswerSheets(int $count = 1, array $data = []): array
+    {
+        $answerSheetRepository = $this->app->make(AnswerSheetRepositoryInterface::class);
+
+        $quiz = $this->createQuiz()[0];
+
+        $answerSheetData = empty($data) ? [
+            'quiz_id' => $quiz->getId(),
+            'answers' => json_encode([
+                1 => 3,
+                2 => 1,
+                3 => 4,
+            ]),
+            'status' => AnswerSheetsStatus::PASSED,
+            'score' => 10,
+            'finished_at' => Carbon::now(),
+        ] : $data;
+
+        $answerSheets = [];
+
+        foreach (range(0, $count) as $item) {
+            $answerSheets[] = $answerSheetRepository->create($answerSheetData);
+        }
+
+        return $answerSheets;
     }
 
 }

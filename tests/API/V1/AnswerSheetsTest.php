@@ -57,4 +57,21 @@ class AnswerSheetsTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function ensureWeCanDeleteAnswerSheet()
+    {
+        $answerSheet = $this->createAnswerSheets()[0];
+
+        $response = $this->call('DELETE', 'api/v1/answer-sheets', [
+            'id' => $answerSheet->getId(),
+        ]);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->seeJsonStructure([
+            'success',
+            'message',
+            'data',
+        ]);
+    }
+
 }

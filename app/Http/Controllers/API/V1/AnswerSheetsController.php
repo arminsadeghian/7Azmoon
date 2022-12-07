@@ -45,4 +45,22 @@ class AnswerSheetsController extends BaseAPIController
         ]);
     }
 
+    public function delete(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|numeric',
+        ]);
+
+        if (!$this->answerSheetRepository->find($request->id)) {
+            return $this->respondNotFound('پاسخ نامه یافت نشد');
+        }
+
+
+        if (!$this->answerSheetRepository->delete($request->id)) {
+            return $this->respondInternalError('پاسخ نامه حذف نشد');
+        }
+
+        return $this->respondSuccess('پاسخ نامه حذف شد', []);
+    }
+
 }
