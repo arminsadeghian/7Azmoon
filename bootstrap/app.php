@@ -27,6 +27,8 @@ $app->withFacades();
 
 $app->withEloquent();
 
+$app->configure('swagger-lume');
+
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -95,6 +97,7 @@ $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
 $app->register(App\Providers\RepositoryServiceProvider::class);
+$app->register(\SwaggerLume\ServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
