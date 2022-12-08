@@ -13,6 +13,54 @@ class QuizzesController extends BaseAPIController
     {
     }
 
+    /**
+     *
+     * @OA\Get (
+     *     path="/api/v1/quizzes",
+     *     description="Returns all quizzes",
+     *     tags={"quizzes"},
+     *
+     *     @OA\Parameter (
+     *          name="page",
+     *          in="path",
+     *          description="Specify the page number",
+     *          required=false,
+     *          @OA\Schema (type="integer")
+     *     ),
+     *
+     *     @OA\Parameter (
+     *          name="page_size",
+     *          in="path",
+     *          description="Specify the number of results per page",
+     *          required=false,
+     *          @OA\Schema (type="integer")
+     *     ),
+     *
+     *     @OA\Response (
+     *          response=200,
+     *          description="All quizzes",
+     *          @OA\JsonContent (
+     *              @OA\Property (property="success", type="boolean", example="true"),
+     *              @OA\Property (property="message", type="string", example="All quizzes"),
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @OA\Items(
+     *                      @OA\Property(property="id", type="integer", example="1"),
+     *                      @OA\Property(property="category_id", type="integer", example="1"),
+     *                      @OA\Property(property="title", type="string", example="Quiz Name"),
+     *                      @OA\Property(property="description", type="string", example="Quiz Description"),
+     *                      @OA\Property(property="start_date", type="date", example="2022-12-8"),
+     *                      @OA\Property(property="duration", type="date", example="60"),
+     *                      @OA\Property(property="is_active", type="boolean", example="true"),
+     *                  )
+     *              )
+     *          ),
+     *     ),
+     *
+     *)
+     *
+     */
     public function index(Request $request)
     {
         $this->validate($request, [
@@ -25,6 +73,51 @@ class QuizzesController extends BaseAPIController
         return $this->respondSuccess('آزمون ها', $quizzes);
     }
 
+    /**
+     *
+     * @OA\Post (
+     *     path="/api/v1/quizzes",
+     *     description="Create new quiz",
+     *     tags={"quizzes"},
+     *
+     *     @OA\RequestBody (
+     *          required=true,
+     *          description="Create new quiz",
+     *          @OA\JsonContent (
+     *                  @OA\Property(property="category_id", type="integer", example="1"),
+     *                  @OA\Property(property="title", type="string", example="Quiz Name"),
+     *                  @OA\Property(property="description", type="string", example="Quiz Description"),
+     *                  @OA\Property(property="start_date", type="date", example="2022-12-8"),
+     *                  @OA\Property(property="duration", type="date", example="60"),
+     *                  @OA\Property(property="is_active", type="boolean", example="true"),
+     *          ),
+     *      ),
+     *
+     *     @OA\Response (
+     *          response=201,
+     *          description="Quiz created",
+     *          @OA\JsonContent (
+     *                  @OA\Property (property="success", type="boolean", example="true"),
+     *                  @OA\Property (property="message", type="string", example="Quiz created"),
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @OA\Items(
+     *                      @OA\Property(property="id", type="integer", example="1"),
+     *                      @OA\Property(property="category_id", type="integer", example="1"),
+     *                      @OA\Property(property="title", type="string", example="Quiz Name"),
+     *                      @OA\Property(property="description", type="string", example="Quiz Description"),
+     *                      @OA\Property(property="start_date", type="date", example="2022-12-8"),
+     *                      @OA\Property(property="duration", type="date", example="60"),
+     *                      @OA\Property(property="is_active", type="boolean", example="true"),
+     *                  )
+     *              )
+     *          ),
+     *     ),
+     *
+     * )
+     *
+     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -62,6 +155,33 @@ class QuizzesController extends BaseAPIController
         ]);
     }
 
+    /**
+     *
+     * @OA\Delete  (
+     *     path="/api/v1/quizzes",
+     *     description="Delete new quiz",
+     *     tags={"quizzes"},
+     *
+     *     @OA\RequestBody (
+     *          required=true,
+     *          description="Delete new quiz",
+     *          @OA\JsonContent (
+     *              @OA\Property (property="id", type="integer", example="1"),
+     *          ),
+     *      ),
+     *
+     *     @OA\Response (
+     *          response=200,
+     *          description="Quiz deleted",
+     *          @OA\JsonContent (
+     *              @OA\Property (property="success", type="boolean", example="true"),
+     *              @OA\Property (property="message", type="string", example="Quiz deleted"),
+     *          ),
+     *     ),
+     *
+     *)
+     *
+     */
     public function delete(Request $request)
     {
         $this->validate($request, [
@@ -79,6 +199,52 @@ class QuizzesController extends BaseAPIController
         return $this->respondSuccess('آزمون حذف شد', []);
     }
 
+    /**
+     *
+     * @OA\Put (
+     *     path="/api/v1/quizzes",
+     *     description="Update a quiz",
+     *     tags={"quizzes"},
+     *
+     *     @OA\RequestBody (
+     *          required=true,
+     *          description="Update a quiz",
+     *          @OA\JsonContent (
+     *                 @OA\Property(property="id", type="integer", example="1"),
+     *                 @OA\Property(property="category_id", type="integer", example="1"),
+     *                 @OA\Property(property="title", type="string", example="Quiz Name"),
+     *                 @OA\Property(property="description", type="string", example="Quiz Description"),
+     *                 @OA\Property(property="start_date", type="date", example="2022-12-8"),
+     *                 @OA\Property(property="duration", type="date", example="60"),
+     *                 @OA\Property(property="is_active", type="boolean", example="true"),
+     *          ),
+     *      ),
+     *
+     *     @OA\Response (
+     *          response=200,
+     *          description="Quiz updated",
+     *          @OA\JsonContent (
+     *              @OA\Property (property="success", type="boolean", example="true"),
+     *              @OA\Property (property="message", type="string", example="Quiz updated"),
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @OA\Items(
+     *                      @OA\Property(property="id", type="integer", example="1"),
+     *                      @OA\Property(property="category_id", type="integer", example="1"),
+     *                      @OA\Property(property="title", type="string", example="Quiz Name"),
+     *                      @OA\Property(property="description", type="string", example="Quiz Description"),
+     *                      @OA\Property(property="start_date", type="date", example="2022-12-8"),
+     *                      @OA\Property(property="duration", type="date", example="60"),
+     *                      @OA\Property(property="is_active", type="boolean", example="true"),
+     *                  )
+     *              )
+     *          ),
+     *     ),
+     *
+     * )
+     *
+     */
     public function update(Request $request)
     {
         $this->validate($request, [

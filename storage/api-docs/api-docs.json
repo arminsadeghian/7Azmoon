@@ -266,6 +266,347 @@
                 }
             }
         },
+        "/api/v1/quizzes": {
+            "get": {
+                "tags": [
+                    "quizzes"
+                ],
+                "description": "Returns all quizzes",
+                "operationId": "da103ff0100c3736fd5fdb6536728012",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "Specify the page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "path",
+                        "description": "Specify the number of results per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All quizzes",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "All quizzes"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "category_id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Quiz Name"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Quiz Description"
+                                                    },
+                                                    "start_date": {
+                                                        "type": "date",
+                                                        "example": "2022-12-8"
+                                                    },
+                                                    "duration": {
+                                                        "type": "date",
+                                                        "example": "60"
+                                                    },
+                                                    "is_active": {
+                                                        "type": "boolean",
+                                                        "example": "true"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "quizzes"
+                ],
+                "description": "Update a quiz",
+                "operationId": "ef39ee94cc019614e31445cf514c11a0",
+                "requestBody": {
+                    "description": "Update a quiz",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Quiz Name"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Quiz Description"
+                                    },
+                                    "start_date": {
+                                        "type": "date",
+                                        "example": "2022-12-8"
+                                    },
+                                    "duration": {
+                                        "type": "date",
+                                        "example": "60"
+                                    },
+                                    "is_active": {
+                                        "type": "boolean",
+                                        "example": "true"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Quiz updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Quiz updated"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "category_id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Quiz Name"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Quiz Description"
+                                                    },
+                                                    "start_date": {
+                                                        "type": "date",
+                                                        "example": "2022-12-8"
+                                                    },
+                                                    "duration": {
+                                                        "type": "date",
+                                                        "example": "60"
+                                                    },
+                                                    "is_active": {
+                                                        "type": "boolean",
+                                                        "example": "true"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "quizzes"
+                ],
+                "description": "Create new quiz",
+                "operationId": "d06e3df532664723d4a8b31f19e6f5ca",
+                "requestBody": {
+                    "description": "Create new quiz",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Quiz Name"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Quiz Description"
+                                    },
+                                    "start_date": {
+                                        "type": "date",
+                                        "example": "2022-12-8"
+                                    },
+                                    "duration": {
+                                        "type": "date",
+                                        "example": "60"
+                                    },
+                                    "is_active": {
+                                        "type": "boolean",
+                                        "example": "true"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Quiz created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Quiz created"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "category_id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Quiz Name"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Quiz Description"
+                                                    },
+                                                    "start_date": {
+                                                        "type": "date",
+                                                        "example": "2022-12-8"
+                                                    },
+                                                    "duration": {
+                                                        "type": "date",
+                                                        "example": "60"
+                                                    },
+                                                    "is_active": {
+                                                        "type": "boolean",
+                                                        "example": "true"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "quizzes"
+                ],
+                "description": "Delete new quiz",
+                "operationId": "c488c12b57f44957df8ae0c8f5ed28d0",
+                "requestBody": {
+                    "description": "Delete new quiz",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Quiz deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Quiz deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/users": {
             "get": {
                 "tags": [
