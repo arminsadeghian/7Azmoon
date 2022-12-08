@@ -564,10 +564,10 @@
                 "tags": [
                     "quizzes"
                 ],
-                "description": "Delete new quiz",
+                "description": "Delete a quiz",
                 "operationId": "c488c12b57f44957df8ae0c8f5ed28d0",
                 "requestBody": {
-                    "description": "Delete new quiz",
+                    "description": "Delete a quiz",
                     "required": true,
                     "content": {
                         "application/json": {

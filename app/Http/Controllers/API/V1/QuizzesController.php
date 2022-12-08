@@ -159,12 +159,12 @@ class QuizzesController extends BaseAPIController
      *
      * @OA\Delete  (
      *     path="/api/v1/quizzes",
-     *     description="Delete new quiz",
+     *     description="Delete a quiz",
      *     tags={"quizzes"},
      *
      *     @OA\RequestBody (
      *          required=true,
-     *          description="Delete new quiz",
+     *          description="Delete a quiz",
      *          @OA\JsonContent (
      *              @OA\Property (property="id", type="integer", example="1"),
      *          ),
