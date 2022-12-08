@@ -265,6 +265,383 @@
                     }
                 }
             }
+        },
+        "/api/v1/users": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "description": "Returns all users",
+                "operationId": "7af644f00b6c6c4d757557f8a10d9002",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "Specify the page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "path",
+                        "description": "Specify the number of results per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All users",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "All Users"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "full_name": {
+                                                        "type": "string",
+                                                        "example": "Armin Sadeghian"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "armin@gmail.com"
+                                                    },
+                                                    "mobile": {
+                                                        "type": "string",
+                                                        "example": "09111111111"
+                                                    },
+                                                    "password": {
+                                                        "type": "string",
+                                                        "example": "123456"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "users"
+                ],
+                "description": "Update user information",
+                "operationId": "53f935193f89d88574ee9585e0d7ccfa",
+                "requestBody": {
+                    "description": "Update user information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "full_name": {
+                                        "type": "string",
+                                        "example": "Armin Sadeghian"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "armin@gmail.com"
+                                    },
+                                    "mobile": {
+                                        "type": "string",
+                                        "example": "09111111111"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User information updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User information updated"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "full_name": {
+                                                        "type": "string",
+                                                        "example": "Armin Sadeghian"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "armin@gmail.com"
+                                                    },
+                                                    "mobile": {
+                                                        "type": "string",
+                                                        "example": "09111111111"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "description": "Create new user",
+                "operationId": "22800277687340cc822f2375bb5d2f47",
+                "requestBody": {
+                    "description": "Create new user",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "full_name": {
+                                        "type": "string",
+                                        "example": "Armin Sadeghian"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "armin@gmail.com"
+                                    },
+                                    "mobile": {
+                                        "type": "string",
+                                        "example": "09111111111"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User created"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "full_name": {
+                                                        "type": "string",
+                                                        "example": "Armin Sadeghian"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "armin@gmail.com"
+                                                    },
+                                                    "mobile": {
+                                                        "type": "string",
+                                                        "example": "09111111111"
+                                                    },
+                                                    "password": {
+                                                        "type": "string",
+                                                        "example": "123456"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "users"
+                ],
+                "description": "Delete a user",
+                "operationId": "4636bdfe2ed45c09861a71d01a76350c",
+                "requestBody": {
+                    "description": "Delete a user",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/users/change-password": {
+            "put": {
+                "tags": [
+                    "users"
+                ],
+                "description": "Update user password",
+                "operationId": "3c9279a47f0111e320e6ad6d8501ecc9",
+                "requestBody": {
+                    "description": "Update user password",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    },
+                                    "password_repeat": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User password updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User password updated"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "full_name": {
+                                                        "type": "string",
+                                                        "example": "Armin Sadeghian"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "armin@gmail.com"
+                                                    },
+                                                    "mobile": {
+                                                        "type": "string",
+                                                        "example": "09111111111"
+                                                    },
+                                                    "password": {
+                                                        "type": "string",
+                                                        "example": "123456"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
